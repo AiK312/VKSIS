@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="img\ImgUtils.hpp" />
     <ClCompile Include="img\PCX.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

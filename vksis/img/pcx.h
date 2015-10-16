@@ -51,6 +51,10 @@ public:
 	PCX(std::string filename);
 	~PCX();
 
+	int Width();
+	int Height();
+	BYTE* Raw();
+	void NewRaw(BYTE* newPixels);
 	void Load(std::string filename);
 	void Save(std::string filename);
 };

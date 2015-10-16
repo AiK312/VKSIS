@@ -21,6 +21,9 @@
     <ClCompile Include="img\PCX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="img\ImgUtils.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="img\PCX.h">

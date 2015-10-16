@@ -1,3 +1,4 @@
+#define _SCL_SECURE_NO_WARNINGS
 #include "PCX.h"
 
 PCX::PCX(std::string fileName)
@@ -110,4 +111,24 @@ void PCX::Encode(std::ofstream *img)
 		img->write((char*)buf, size);
 	}
 	delete[] buf;
+}
+
+int PCX::Width()
+{
+	return width;
+}
+
+int PCX::Height()
+{
+	return height;
+}
+
+BYTE* PCX::Raw()
+{
+	return pixels;
+}
+
+void PCX::NewRaw(BYTE* newPixels)
+{
+	std::copy(newPixels, newPixels + width * height, pixels);
 }
