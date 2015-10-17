@@ -42,16 +42,27 @@ public:
 	static void MedianFilter(unsigned char* original, unsigned char* processed, int heigth, int width)
 	{
 		auto window = new unsigned char[9];
-		//heigth--, width--;
-		for (int i = 1; i < (heigth-1); ++i)
-		{
-			for (int j = 1; j < (width-1); ++j)
+		int H = heigth - 1, W = width - 1;
+		for (int i = 1; i < H; ++i)
+			for (int j = 1; j < W; ++j)
 			{
 				LoadWindow(original, i, j, width, window);
 				SortWindow(window);
 				processed[i * width + j] = window[4];
 			}
-		}
 		delete[] window;
+	}
+
+	static void Rotate180(unsigned char* original, int size)
+	{
+		int mid = size / 2;
+		unsigned char tmp;
+		for (int i = 0; i < mid; ++i)
+		{
+			//tmp = original[i];
+			//original[i] = original[size - i];
+			//original[size - i] = tmp;
+			std::swap(original[i], original[size - i]);
+		}
 	}
 };
