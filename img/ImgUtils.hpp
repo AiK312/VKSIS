@@ -15,8 +15,8 @@ private:
 
 	static inline void LoadWindow(unsigned char* source, int y, int x, int width, unsigned char* window)
 	{
-		LoadLine(source + (y - 1) * width + x, window);
-		LoadLine(source + y * width + x, window + 3);
+		LoadLine(source + (y - 1) * width + x, window + 0);
+		LoadLine(source + (y + 0) * width + x, window + 3);
 		LoadLine(source + (y + 1) * width + x, window + 6);
 	}
 
@@ -30,7 +30,7 @@ public:
 	static void AddNoise(unsigned char* original, int heigth, int width, float p)
 	{
 		srand(time(NULL));
-		int amount = heigth * width * p * 2, x, y;
+		int amount = heigth * width * p, x, y;
 		for (int i = 0; i < amount; ++i)
 		{
 			y = rand() % heigth;

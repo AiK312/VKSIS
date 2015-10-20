@@ -36,8 +36,12 @@ void PCX::Load(std::string fileName)
 
 	width = header->Xmax - header->Xmin + 1;
 	height = header->Ymax - header->Ymin + 1;
+	frameH = height + 2;
+	frameW = width + 2;
 	header->PaletteInfo = 2;
-	pixels = new BYTE[height * width];
+
+	// make frame
+	pixels = new BYTE[frameH * frameW];
 
 	auto sourceSize = fileSize - sizeof(PCXHEADER);
 	auto source = new BYTE[sourceSize];
@@ -59,7 +63,7 @@ void PCX::Save(std::string fileName)
 
 int PCX::DecodeLine(BYTE* sourceBytes, BYTE* decodedBytes, int lineLength)
 {
-	int sourcePos = 0, decodedPos = 0;;
+	int sourcePos = 0, decodedPos = 1;
 	BYTE curByte, curByteCount;
 	while (decodedPos < lineLength)
 	{
@@ -73,18 +77,28 @@ int PCX::DecodeLine(BYTE* sourceBytes, BYTE* decodedBytes, int lineLength)
 		for (; curByteCount && decodedPos < lineLength; --curByteCount, ++decodedPos)
 			decodedBytes[decodedPos] = curByte;
 	}
+
+	// make frame
+	decodedBytes[0] = decodedBytes[1];
+	decodedBytes[lineLength] = decodedBytes[lineLength - 1];
+
 	return sourcePos;
 }
 
 void PCX::Decode(BYTE* source)
 {
-	for (int i = 0, size = 0; i < height; ++i)
-		size += DecodeLine(source + size, pixels + width * i, width);
+	for (int i = 0, size = 0; i < frameH; ++i)
+	{
+		if (i == 1 || i == (frameH - 1))
+			std::copy(pixels + frameW * (i - 1), pixels + frameW * i, pixels + frameW * i);
+		else
+			size += DecodeLine(source + size, pixels + frameW * i, width + 1);
+	}
 }
 
 int PCX::EncodeLine(BYTE* sourceBytes, BYTE* encodedBytes, int lineLength)
 {
-	int sourcePos = 0, encodedPos = 0;
+	int sourcePos = 1, encodedPos = 0;
 	BYTE curByte, curByteCount;
 	while (sourcePos < lineLength)
 	{
@@ -105,9 +119,12 @@ int PCX::EncodeLine(BYTE* sourceBytes, BYTE* encodedBytes, int lineLength)
 void PCX::Encode(std::ofstream *img)
 {
 	auto buf = new BYTE[width * 2];
-	for (int i = 0, size = 0; i < height; i++)
+
+	for (int i = 0, size = 0; i < frameH; ++i)
 	{
-		size = EncodeLine(pixels + width * i, buf, width);
+		if (i == 0 || i == (frameH - 1))
+			continue;
+		size = EncodeLine(pixels + frameW * i, buf, width + 1);
 		img->write((char*)buf, size);
 	}
 	delete[] buf;
@@ -115,20 +132,15 @@ void PCX::Encode(std::ofstream *img)
 
 int PCX::Width()
 {
-	return width;
+	return frameW;
 }
 
 int PCX::Height()
 {
-	return height;
+	return frameH;
 }
 
 BYTE* PCX::Raw()
 {
 	return pixels;
-}
-
-void PCX::NewRaw(BYTE* newPixels)
-{
-	std::copy(newPixels, newPixels + width * height, pixels);
 }

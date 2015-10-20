@@ -39,6 +39,7 @@ private:
 	PCXHEADER *header = NULL;
 	BYTE *pixels = NULL;
 
+	int frameH, frameW;
 	int width = 0;
 	int height = 0;
 
@@ -54,7 +55,6 @@ public:
 	int Width();
 	int Height();
 	BYTE* Raw();
-	void NewRaw(BYTE* newPixels);
 	void Load(std::string filename);
 	void Save(std::string filename);
 };
