@@ -205,7 +205,7 @@ private:
 
 inline void PrintElapsed(std::string text, ClockPoint start, ClockPoint end)
 {
-	std::cout << text << "\t:\t" << std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - start).count() << " ns" << std::endl;
+	std::cout << text << "\t:\t" << std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start).count() << " ms" << std::endl;
 }
 
 int main()

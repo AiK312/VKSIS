@@ -205,12 +205,12 @@ private:
 
 inline void PrintElapsed(std::string text, ClockPoint start, ClockPoint end)
 {
-	std::cout << text << "\t:\t" << std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - start).count() << " ns" << std::endl;
+	std::cout << text << "\t:\t" << std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - start).count() << " ms" << std::endl;
 }
 
 inline long long Duration()
 {
-	return std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now().time_since_epoch()).count();
+	return std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now().time_since_epoch()).count();
 }
 
 template<typename T> 
@@ -265,10 +265,10 @@ int main(int argc, char *argv[])
 	unsigned char *newImg = new unsigned char[recvSize];
 	timer = Clock::now();
 	ImgUtils::MedianFilter(recvBuf, newImg, recvSize / width, width);
-	times[2] = std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - timer).count();
+	times[2] = std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - timer).count();
 	timer = Clock::now();
 	ImgUtils::Rotate180(newImg, recvSize);
-	times[3] = std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - timer).count();
+	times[3] = std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - timer).count();
 	for (int i = 0; i < nproc; ++i)
 	{
 		sConuts[i] -= 2 * width;
@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 	MPI_Gather(times, 5, MPI_LONG_LONG_INT, allTimes, 5, MPI_LONG_LONG_INT, 0, MPI_COMM_WORLD);
 	if (rank == 0)
 	{
-		long long timeStart = std::chrono::duration_cast<std::chrono::nanoseconds>(start.time_since_epoch()).count();
+		long long timeStart = std::chrono::duration_cast<std::chrono::milliseconds>(start.time_since_epoch()).count();
 		std::cout << "send size after start : " << timeSendSize - timeStart<< std::endl;
 		printElement("proc", 6);
 		printElement("recv start", 18);
@@ -338,12 +338,13 @@ int main(int argc, char *argv[])
 		for (int i = 0; i < nproc; ++i)
 		{
 			printElement(i, 6);
-			printElement(allTimes[5 * i + 4], 18);
+			printElement(allTimes[5 * i + 4] - timeStart, 18);
 			printElement(timeRecvBuf - allTimes[5 * i + 4], 18);
 			std::cout << std::endl;
 		}
 	}
 	MPI_Finalize();
+	delete[] allTimes;
 	delete[] recvBuf;
 	delete[] newImg;
 	delete[] pixels;
