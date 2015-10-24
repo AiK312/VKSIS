@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis", "vksis\vksis.vcxproj", "{0B6B36E7-599F-4575-8FA0-5529A4E0ECD7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis_pcx", "vksis\vksis.vcxproj", "{0B6B36E7-599F-4575-8FA0-5529A4E0ECD7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis_mpi", "vksis_mpi\vksis_mpi.vcxproj", "{6FF78F46-298A-43F2-A9C4-77A789973F24}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis_pcx_mpi", "vksis_mpi\vksis_mpi.vcxproj", "{6FF78F46-298A-43F2-A9C4-77A789973F24}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis_bmp", "vksis_bmp\vksis_bmp.vcxproj", "{455563F9-DC9A-4FA2-927F-B514F91B81CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vksis_bmp_mpi", "vksis_bmp_mpi\vksis_bmp_mpi.vcxproj", "{6474377D-D857-472B-A022-7FAF0C49424F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{455563F9-DC9A-4FA2-927F-B514F91B81CC}.Release|x64.Build.0 = Release|x64
 		{455563F9-DC9A-4FA2-927F-B514F91B81CC}.Release|x86.ActiveCfg = Release|Win32
 		{455563F9-DC9A-4FA2-927F-B514F91B81CC}.Release|x86.Build.0 = Release|Win32
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Debug|x64.ActiveCfg = Debug|x64
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Debug|x64.Build.0 = Debug|x64
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Debug|x86.ActiveCfg = Debug|Win32
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Debug|x86.Build.0 = Debug|Win32
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Release|x64.ActiveCfg = Release|x64
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Release|x64.Build.0 = Release|x64
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Release|x86.ActiveCfg = Release|Win32
+		{6474377D-D857-472B-A022-7FAF0C49424F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

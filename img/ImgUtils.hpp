@@ -55,14 +55,6 @@ public:
 
 	static void Rotate180(unsigned char* original, int size)
 	{
-		int mid = size / 2;
-		unsigned char tmp;
-		for (int i = 0; i < mid; ++i)
-		{
-			//tmp = original[i];
-			//original[i] = original[size - i];
-			//original[size - i] = tmp;
-			std::swap(original[i], original[size - i]);
-		}
+		std::reverse(original, original + size);
 	}
 };
